@@ -1,4 +1,4 @@
-package main
+package gopass
 
 import (
 	"crypto/aes"
@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 )
 
-func encrypt(text []byte, key []byte) {
+func encrypt(text []byte, key []byte, fileName string) {
 	// generate a new aes cipher using our 32 bytes long key
 	c, err := aes.NewCipher(key)
 	if err != nil {
@@ -39,8 +39,34 @@ func encrypt(text []byte, key []byte) {
 	//time, for a given key.
 	ciphertext := gcm.Seal(nonce, nonce, text, nil)
 
-	err = ioutil.WriteFile("myfile.data", ciphertext, 0600)
+	err = ioutil.WriteFile(fileName, ciphertext, 0600)
 	if err != nil {
 		fmt.Println(err)
 	}
+}
+
+// Decrypt is the decryption function
+func Decrypt(fileName string, key []byte) []byte {
+	ciphertext, err := ioutil.ReadFile(fileName)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	c, err := aes.NewCipher(key)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	gcm, err := cipher.NewGCM(c)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	nonceSize := gcm.NonceSize()
+	nonce, ciphertext := ciphertext[:nonceSize], ciphertext[nonceSize:]
+	plaintext, err := gcm.Open(nil, nonce, ciphertext, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return plaintext
 }

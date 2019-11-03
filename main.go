@@ -1,10 +1,22 @@
 package main
 
-func main() {
-	text := []byte("My Super Secret code stuff")
-	key := []byte("passphrasewhichneedstobe32bytes!")
+import (
+	"fmt"
 
-	// encrypted data is stored in myfile.data
-	encrypt(text, key)
-	decrypt(key)
+	"github.com/x899/gopass/gopass"
+)
+
+func main() {
+	// createFlag := flag.Bool("create", false, "Insert a username/password in to your vault")
+	// flag.Parse()
+
+	// if *createFlag {
+	// 	create()
+	// }
+
+	gopass.Create("main1", "gopher1")
+
+	key := []byte("passphrasewhichneedstobe32bytes!")
+	data := gopass.Decrypt("myfile.data", key)
+	fmt.Println(string(data))
 }
