@@ -1,5 +1,14 @@
-# Class Template
+## Generic Programming
+- In 1989, _Alexander Stepanov_ and _David Musser_ published a patper in which they coin the term generic programming and present a detailed definition.
+- A programming paradigm where data types are not specified in the implementation of code. Instead, data types are specified in the lines of code that instantiate, or otherwise use those pieces of reusable code.
 
+### Compile-Time Polymorphism
+- Generic Programming is sometimes referred to as Compile-Time Polymorphism.
+- Specifying data types at variable definition of object instantiation is, in essence, polymorphism resolved at compile time.
+- Potentially more efficient than runtime polymorphism.
+- Compile-Time polymorphism may be computationally less expensive than the traditional runtime polymorphism because most of the calculations and adaptations that need to be performed at achieve polymorphism will happend once during compile time.
+
+## Class Template
 Templates allows us to do Generic Programming in C++. Generic Programming is an approach where generic types are used as parameters in algorithms so that they work for a variety of suitable data types and data structures.
 
 A template can be considered as a kind of macro. When an object of a specific type is defined for actual use, the template definition for that class is substituted with the required data type. Since a template is defined with a parameter that would be replaced by a specified data type at the time of actual use of the class or function, the templates are sometimes called parameterized classes or functions.
